@@ -249,6 +249,7 @@ ostream& operator<<(ostream& os, const myString& s)
       os << s[i];
       i++;
    }
+   return os;
 }
 
 //added by Navraj (Raj) Saini
@@ -283,7 +284,7 @@ bool myString::operator!=(const myString& s)
    return true;
 }
 
-bool operator<(const myString&s)
+bool operator<(const myString& s)
 {
    if (this.lenght() < s.lenght())
    {
@@ -298,12 +299,35 @@ bool operator<(const myString&s)
       }
       return true;
    }
+   //the s myString is larger than the left operand
    else
       return false;
 }
-bool operator<=(const myString&s);
-bool operator>(const myString&s);
-bool operator>=(const myString&s);
+
+bool operator<=(const myString& s)
+{
+   if(this < s && this == s)
+      return true;
+   else
+      return false;
+}
+
+bool operator>(const myString& s)
+{
+   if(!(this < s))
+      return true;
+   else
+      return false;
+}
+
+bool operator>=(const myString& s)
+{
+   if (this > s && this == s)
+      return true;
+   else
+      return false;
+}
+
 myString myString::operator+ (const myString& s)
 {
    myString n(this.lenght()+s.length());
@@ -322,6 +346,7 @@ myString myString::operator+ (const myString& s)
    }
    return n;
 }
+
 myString& myString::operator+=(const myString& s)
 {
    this.resize(this.length()+s.length());

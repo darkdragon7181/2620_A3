@@ -85,8 +85,8 @@ public:
   myString operator+ (const myString& s);
   myString& operator+=(const myString& s);
   
-  char& operator[](int i);//done
-  const char& operator[](int i) const;//done
+  char& operator[](int i);
+  const char& operator[](int i) const;
   
   bool operator==(const myString& s);
   bool operator!=(const myString& s);
@@ -113,6 +113,6 @@ private:
 // reads a string until the end of line
 
 ostream& operator<<(ostream& os, const myString& s);
-istream& operator>>(ostream& in, myString& s);
+istream& operator>>(istream& in, myString& s);
 
 #endif
