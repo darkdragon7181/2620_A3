@@ -21,39 +21,39 @@ using namespace std;
 
 // default: initializes to empty string
 myString::myString()
-  : A(nullptr), len(0) 
+   : A(nullptr), len(0) 
 {
 }
 
 // convert from a null-terminated string
 myString::myString(const char *s)
-  : A(nullptr), len(0)     // setting these so resize() works properly
+   : A(nullptr), len(0)     // setting these so resize() works properly
 {
-  int newlen = 0;
-  while (s[newlen] != '\0')
-    newlen++;
-  resize(newlen);
-  for (int i = 0; i < len; i++) {
-    A[i] = s[i];
-  }
+   int newlen = 0;
+   while (s[newlen] != '\0')
+      newlen++;
+   resize(newlen);
+   for (int i = 0; i < len; i++) {
+      A[i] = s[i];
+   }
 }
 
 // convert from a single character
 myString::myString(char c)
-  : A(nullptr), len(0)
+   : A(nullptr), len(0)
 {
-  resize(1);
-  A[0] = c;
+   resize(1);
+   A[0] = c;
 }
 
 // copy constructor
 myString::myString(const myString& s)
-  : A(nullptr), len(0)
+   : A(nullptr), len(0)
 {
-  resize(s.len);
-  for (int i = 0; i < len; i++) {
-    A[i] = s.A[i];
-  }
+   resize(s.len);
+   for (int i = 0; i < len; i++) {
+      A[i] = s.A[i];
+   }
 }
 
 ///////////////////////////////////////////////////////
@@ -62,8 +62,8 @@ myString::myString(const myString& s)
 
 myString::~myString()
 {
-  delete[] A;
-  A = nullptr;         // not necessary, but just being safe
+   delete[] A;
+   A = nullptr;         // not necessary, but just being safe
 }
 
 ///////////////////////////////////////////////////////
@@ -73,19 +73,19 @@ myString::~myString()
 // assignment operator
 myString& myString::operator=(const myString& s)
 {
-  if (this != &s) {       // prevent self assignment
-    resize(s.len);
-    for (int i = 0; i < len; i++) {
-      A[i] = s.A[i];
-    }
-  }
-  return *this;
+   if (this != &s) {       // prevent self assignment
+      resize(s.len);
+      for (int i = 0; i < len; i++) {
+	 A[i] = s.A[i];
+      }
+   }
+   return *this;
 }
 
 // returns the length of the string
 int myString::length() const
 {
-  return len;
+   return len;
 }
 
 // index operator for non-constant myString
@@ -93,8 +93,8 @@ int myString::length() const
 // by Navraj (Raj) Saini
 char& myString::operator[](int i)
 {
-  assert(0 <= i && i < len);
-  return A[i];
+   assert(0 <= i && i < len);
+   return A[i];
 }
 
 // index operator for constant myString
@@ -102,21 +102,21 @@ char& myString::operator[](int i)
 // by Navraj (Raj) Saini
 const char& operator[](int i) const
 {
-  assert(0 <= i && i < len);
-  return A[i];
+   assert(0 <= i && i < len);
+   return A[i];
 }
 
 // returns a substring starting at index k of length n
 myString myString::substr(int k, int n) const
 {
-  assert(0 <= k && k+n <= len);
+   assert(0 <= k && k+n <= len);
   
-  myString s;
-  s.resize(n);     // make sure we have enough space
-  for (int i = 0; i < n; i++) {
-    s.A[i] = A[k+i];    // now copy
-  }
-  return s;
+   myString s;
+   s.resize(n);     // make sure we have enough space
+   for (int i = 0; i < n; i++) {
+      s.A[i] = A[k+i];    // now copy
+   }
+   return s;
 }
 
 // erases n characters starting at index k
@@ -262,9 +262,9 @@ bool myString::operator==(const myString& s)
       for (int i = 0; i < s.length(); i++)
       {
 	 if (this[i] != s[i])
-	    {
-	       return false;
-	    }
+	 {
+	    return false;
+	 }
       }
       return true;
    }
@@ -278,13 +278,13 @@ bool myString::operator!=(const myString& s)
       {
 	 if(this[i] != s[i])
 	    return true;
-	 return false;
       }
+      return false;
    }
    return true;
 }
 
-bool operator<(const myString& s)
+bool myString::operator<(const myString& s)
 {
    if (this.lenght() < s.lenght())
    {
@@ -304,7 +304,7 @@ bool operator<(const myString& s)
       return false;
 }
 
-bool operator<=(const myString& s)
+bool myString::operator<=(const myString& s)
 {
    if(this < s && this == s)
       return true;
@@ -312,7 +312,7 @@ bool operator<=(const myString& s)
       return false;
 }
 
-bool operator>(const myString& s)
+bool myString::operator>(const myString& s)
 {
    if(!(this < s))
       return true;
@@ -320,7 +320,7 @@ bool operator>(const myString& s)
       return false;
 }
 
-bool operator>=(const myString& s)
+bool myString::operator>=(const myString& s)
 {
    if (this > s && this == s)
       return true;
@@ -330,16 +330,17 @@ bool operator>=(const myString& s)
 
 myString myString::operator+ (const myString& s)
 {
-   myString n(this.lenght()+s.length());
-   int j = this.length();
+   int sz = this->len + s.len;
+   myString n;
+   n.resize(sz);
+   int j = this->length();
    
-   n.len = this.length()+s.length();
+   n.len = this->length()+s.length();
    //copy over all the values from the first myString to new myString
-   for (int k = 0; k < this.length(); k++)
-      n[i] = this[i];
+   n=this;
 
    //add the s string to the end of the myString
-   for (int i = 0; i < s.lenght(); i++)
+   for (int i = 0; i < s.len; i++)
    {
       n[j] = s[i];
       j++;
@@ -349,12 +350,12 @@ myString myString::operator+ (const myString& s)
 
 myString& myString::operator+=(const myString& s)
 {
-   this.resize(this.length()+s.length());
-   int j = this.length();
-   for (int i = 0; i < s.lenght(); i++)
+   this->resize(this->length()+s.length());
+   int j = this->length();
+   for (int i = 0; i < this->length(); i++)
    {
       this[j] = s[i];
       j++;
    }
-   return this;
+   return *this;
 }
