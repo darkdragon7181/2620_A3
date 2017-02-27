@@ -269,21 +269,38 @@ bool myString::operator==(const myString& s)
    }
 }
 
-// this is the worst thing i have written ever... I wonder if this works XD...
-// I am so sorry
 bool myString::operator!=(const myString& s)
 {
-   if (this.length() == s.lenght()  &&
-       for (int i = 0; i < s.lenght(); i++)
+   if (this.length() == s.lenght())
+   {
+      for (int i = 0; i < s.lenght(); i++)
       {
 	 if(this[i] != s[i])
 	    return true;
-      })// yes I stuck a for loop inside a if loop...
-        //it's 3:29am, can you blame me?
-      return false;
+	 return false;
+      }
+   }
    return true;
 }
-bool operator<(const myString&s);
+
+bool operator<(const myString&s)
+{
+   if (this.lenght() < s.lenght())
+   {
+      return true;
+   }
+   else if (this.lenght() == s.length())
+   {
+      for (int i = 0; i < s.lenght(); i++)
+      {
+	 if (this[i] > s[i])
+	    return false;
+      }
+      return true;
+   }
+   else
+      return false;
+}
 bool operator<=(const myString&s);
 bool operator>(const myString&s);
 bool operator>=(const myString&s);
